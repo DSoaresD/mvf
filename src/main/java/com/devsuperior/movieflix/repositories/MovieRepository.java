@@ -18,3 +18,5 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 	Page<MovieMinProjections> search(Genre genre, Pageable pageable);
 
 }
+
+	
