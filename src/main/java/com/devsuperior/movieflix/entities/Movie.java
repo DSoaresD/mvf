@@ -6,6 +6,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +30,7 @@ public class Movie {
 	@Column(columnDefinition="TEXT")
 	private String synopsis;
 	
-	@OneToMany(mappedBy = "movie")
+	@OneToMany(mappedBy = "movie" , fetch=FetchType.EAGER)
 	private Set<Review> reviews = new HashSet<>();
 	
 	@ManyToOne
