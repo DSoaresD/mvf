@@ -47,7 +47,7 @@ public class MovieService {
 
 	public MovieMin2DTO findMovieWithReviews(Long id) {
 		Movie movie = repository.getOne(id);
-		MovieMinProjections2 entity = repository.findMovieWithReviews(movie);
+		Movie entity = repository.findMovieWithReviews(movie);
 		return new MovieMin2DTO(entity, entity.getReviews());
 		
 		

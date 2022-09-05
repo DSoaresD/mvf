@@ -3,6 +3,7 @@ package com.devsuperior.movieflix.dto;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.devsuperior.movieflix.entities.Movie;
 import com.devsuperior.movieflix.entities.Review;
 import com.devsuperior.movieflix.projections.MovieMinProjections2;
 
@@ -27,6 +28,17 @@ public class MovieMin2DTO {
 		this.year = year;
 		this.imgUrl = imgUrl;
 		this.synopsis = synopsis;
+	}
+	
+	public MovieMin2DTO(Movie entity, Set<Review> reviews) {
+		this.id = entity.getId();
+		this.title = entity.getTitle();
+		this.subTitle = entity.getSubTitle();
+		this.year = entity.getYear();
+		this.imgUrl = entity.getImgUrl();
+		this.synopsis = entity.getSynopsis();
+		
+		reviews.forEach(r -> this.reviews.add(new ReviewDTO(r)));
 	}
 	
 	public MovieMin2DTO(MovieMinProjections2 projections) {
