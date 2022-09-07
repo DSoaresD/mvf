@@ -1,6 +1,8 @@
 package com.devsuperior.movieflix.services;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -9,12 +11,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.movieflix.dto.MovieDTO;
-import com.devsuperior.movieflix.dto.MovieMin2DTO;
 import com.devsuperior.movieflix.dto.MovieMinDTO;
+import com.devsuperior.movieflix.dto.ReviewDTO;
 import com.devsuperior.movieflix.entities.Genre;
 import com.devsuperior.movieflix.entities.Movie;
+import com.devsuperior.movieflix.entities.Review;
 import com.devsuperior.movieflix.projections.MovieMinProjections;
-import com.devsuperior.movieflix.projections.MovieMinProjections2;
 import com.devsuperior.movieflix.repositories.GenreRepository;
 import com.devsuperior.movieflix.repositories.MovieRepository;
 import com.devsuperior.movieflix.repositories.ReviewRepository;
@@ -29,6 +31,7 @@ public class MovieService {
 	@Autowired
 	private GenreRepository genreRepository;
 	
+	@Autowired
 	private ReviewRepository reviewRepository;
 	
 	
@@ -45,12 +48,19 @@ public class MovieService {
 		return list.map(x -> new MovieMinDTO(x));
 	}
 
-	public MovieMin2DTO findMovieWithReviews(Long id) {
+	public List<ReviewDTO> findMovieWithReviews(Long id) {
 		Movie movie = repository.getOne(id);
-		Movie entity = repository.findMovieWithReviews(movie);
-		return new MovieMin2DTO(entity, entity.getReviews());
+		//Movie entity = repository.findMovieWithReviews(movie);
+		List<Review> reviews = reviewRepository.findReviewsByMovieId(movie);
+		return reviews.stream().map(x -> new ReviewDTO(x)).collect(Collectors.toList());
 		
 		
+	}
+
+	public MovieDTO findById(Long id) {
+		Optional<Movie> obj = repository.findById(id);
+		Movie entity = obj.orElseThrow(() -> new ResourceNotFoundException("Entity not found"));
+		return new MovieDTO(entity);
 	}
 
 }

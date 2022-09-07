@@ -1,5 +1,6 @@
 package com.devsuperior.movieflix.services;
 
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.devsuperior.movieflix.dto.ReviewDTO;
 import com.devsuperior.movieflix.entities.Movie;
 import com.devsuperior.movieflix.entities.Review;
+import com.devsuperior.movieflix.entities.User;
 import com.devsuperior.movieflix.repositories.MovieRepository;
 import com.devsuperior.movieflix.repositories.ReviewRepository;
 import com.devsuperior.movieflix.services.exceptions.ResourceNotFoundException;
@@ -21,7 +23,10 @@ public class ReviewService {
 	
 	@Autowired
 	private MovieRepository movieRepository;
-
+	
+	@Autowired
+	private AuthService authService;
+	
 	@Transactional(readOnly = true)
 	public ReviewDTO findById(Long id) {
 		Optional<Review> obj = repository.findById(id);
@@ -35,6 +40,8 @@ public class ReviewService {
 		entity.setText(dto.getText());
 		Movie movie = movieRepository.getOne(dto.getMovieId());
 		entity.setMovie(movie);
+		User user = authService.authenticated();
+		entity.setUser(user);
 		entity = repository.save(entity);
 		return new ReviewDTO(entity);
 	}

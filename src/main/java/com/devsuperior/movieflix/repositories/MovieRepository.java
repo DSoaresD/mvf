@@ -13,7 +13,7 @@ import com.devsuperior.movieflix.projections.MovieMinProjections;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 	
-	@Query(nativeQuery = true, value = "SELECT tb_movie.title, tb_movie.sub_title, tb_movie.year, tb_movie.img_url FROM tb_movie WHERE "
+	@Query(nativeQuery = true, value = "SELECT id, title, sub_title AS subTitle, year, img_url AS imgUrl FROM tb_movie WHERE "
 			+ "(:genre IS NULL OR tb_movie.genre_id = :genre)")
 	Page<MovieMinProjections> search(Genre genre, Pageable pageable);
 	

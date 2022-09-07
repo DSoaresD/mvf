@@ -17,7 +17,6 @@ public class MovieDTO implements Serializable{
 	private Integer year;
 	private String imgUrl;
 	private String synopsis;
-	private Set<ReviewDTO> reviews = new HashSet<>();
 	private GenreDTO genre;
 
 
@@ -46,11 +45,6 @@ public class MovieDTO implements Serializable{
 		this.synopsis = entity.getSynopsis();
 		this.genre = new GenreDTO(entity.getGenre());
 
-	}
-	
-	public MovieDTO(Movie entity, Set<Review> reviews){
-		this(entity);
-		reviews.forEach(r -> this.reviews.add(new ReviewDTO(r)));
 	}
 	
 	
@@ -109,10 +103,6 @@ public class MovieDTO implements Serializable{
 
 	public void setGenreDTO(GenreDTO genre) {
 		this.genre = genre;
-	}
-
-	public Set<ReviewDTO> getReviews() {
-		return reviews;
 	}
 
 	@Override

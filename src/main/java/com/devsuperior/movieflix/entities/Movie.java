@@ -30,7 +30,7 @@ public class Movie {
 	@Column(columnDefinition="TEXT")
 	private String synopsis;
 	
-	@OneToMany(mappedBy = "movie" , fetch=FetchType.EAGER)
+	@OneToMany(mappedBy = "movie")
 	private Set<Review> reviews = new HashSet<>();
 	
 	@ManyToOne

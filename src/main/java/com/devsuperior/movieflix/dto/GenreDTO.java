@@ -12,7 +12,6 @@ public class GenreDTO implements Serializable{
 	
 	private Long id;
 	private String name;
-	private List<MovieDTO> movies = new ArrayList<>();
 	
 	public GenreDTO() {
 		
@@ -45,13 +44,9 @@ public class GenreDTO implements Serializable{
 		this.name = name;
 	}
 
-	public List<MovieDTO> getMovies() {
-		return movies;
-	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, movies, name);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -63,8 +58,9 @@ public class GenreDTO implements Serializable{
 		if (getClass() != obj.getClass())
 			return false;
 		GenreDTO other = (GenreDTO) obj;
-		return Objects.equals(id, other.id) && Objects.equals(movies, other.movies) && Objects.equals(name, other.name);
+		return Objects.equals(id, other.id);
 	}
+
 
 	
 	

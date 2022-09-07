@@ -4,6 +4,7 @@ import com.devsuperior.movieflix.projections.MovieMinProjections;
 
 public class MovieMinDTO {
 	
+	private Long id;
 	private String title;
 	private String subTitle;
 	private Integer year;
@@ -13,7 +14,8 @@ public class MovieMinDTO {
 		
 	}
 
-	public MovieMinDTO(String title, String subTitle, Integer year, String imgUrl) {
+	public MovieMinDTO(Long id, String title, String subTitle, Integer year, String imgUrl) {
+		this.id = id;
 		this.title = title;
 		this.subTitle = subTitle;
 		this.year = year;
@@ -21,10 +23,20 @@ public class MovieMinDTO {
 	}
 	
 	public MovieMinDTO(MovieMinProjections projections) {
+		id = projections.getId();
 		title = projections.getTitle();
 		subTitle = projections.getSubTitle();
 		year = projections.getYear();
 		imgUrl = projections.getImgUrl();
+	}
+	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getTitle() {
